@@ -2,7 +2,7 @@
 @ECHO OFF & SETLOCAL
 SET gitusername=UlteriorBody
 :: Get new sorcerupdater.bat from github and replace this one. Batch will continue from line 6 of the new sorcerupdater.bat.
-powershell -noprofile -command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/sorcerupdater.bat', 'sorcerupdater.bat')"
+powershell -noprofile -command "(New-Object Net.WebClient).DownloadFile("https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/sorcerupdater.bat", 'sorcerupdater.bat')"
 
 ECHO.
 ECHO Checking for all changes made through these updates so far...
