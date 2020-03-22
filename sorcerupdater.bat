@@ -1,7 +1,7 @@
 @ECHO OFF
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/UlteriorBody/sorcer2/master/sorcerupdater.bat', 'sorcerupdater.bat')"
 
-REM Checking for list of mods
+ECHO Checking for list of mods
 powershell -Command "$env:mods = Invoke-WebRequest https://raw.githubusercontent.com/UlteriorBody/sorcer2/master/modlist.txt"
 ECHO %mods%
 GOTO END
