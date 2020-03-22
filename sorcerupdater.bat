@@ -2,7 +2,7 @@
 @ECHO OFF & SETLOCAL
 SET gitusername=UlteriorBody
 :: Gets new sorcerupdater.bat from github and replace this one. Batch will continue from line 6 of the new sorcerupdater.bat.
-powershell -noprofile -command "(New-Object Net.WebClient).DownloadFile(\"https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/sorcerupdater.bat\", 'sorcerupdater.bat')"
+::powershell -noprofile -command "(New-Object Net.WebClient).DownloadFile(\"https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/sorcerupdater.bat\", 'sorcerupdater.bat')"
 
 ECHO.
 ECHO Checking for all changes made through these updates so far...
@@ -34,6 +34,18 @@ FOR /F "usebackq delims=" %%l IN (`powershell -noprofile -Command "Invoke-WebReq
 			)
 			ECHO.
 		)
+	)
+)
+
+:: Pull a list of mods that we want to delete if they exist. Loop over each line in modlist.txt.
+FOR /F "usebackq delims=" %%f IN (`powershell -noprofile -Command "Invoke-WebRequest https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/antimodlist.txt | Select -ExpandProperty "Content""`) DO (
+	IF EXIST mods/%%f (
+		ECHO %%f is not needed, removing it!
+		
+		:: Delete the file.
+		DEL /f mods\%%f
+		
+		ECHO.
 	)
 )
 
