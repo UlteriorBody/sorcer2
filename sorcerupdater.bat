@@ -14,8 +14,6 @@ FOR /F "usebackq delims=" %%l IN (`powershell -noprofile -Command "Invoke-WebReq
 	:: Get f (filename) and u (url). They look like a loop but they only happen once. It's just the easiest way to get powershell output as a variable.
 	FOR /F "usebackq delims=" %%f IN (`powershell -noprofile -command "$env:l.split(' ')[0]"`) DO (
 		FOR /F "usebackq delims=" %%u IN (`powershell -noprofile -command "$env:l.split(' ')[1]"`) DO (
-			::ECHO.FILE: %%f
-			::ECHO.URL: %%u
 			IF EXIST mods/%%f (
 				ECHO %%f is already installed!
 			) ELSE (
