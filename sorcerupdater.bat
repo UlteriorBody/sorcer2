@@ -1,4 +1,5 @@
-ECHO OFF
+@ECHO OFF
+powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/UlteriorBody/sorcer2/master/sorcerupdater.bat', 'sorcerupdater.bat')"
 ECHO Checking for all changes made through these updates so far...
 IF EXIST "mods/OpenComputers-MC1.7.10-1.7.5.1290-universal.jar" (
     ECHO OpenComputers is already installed!
@@ -9,3 +10,4 @@ IF EXIST "mods/OpenComputers-MC1.7.10-1.7.5.1290-universal.jar" (
     move OpenComputers-MC1.7.10-1.7.5.1290-universal.jar mods
 )
 ECHO Update complete!
+PAUSE
