@@ -7,7 +7,7 @@ powershell -noprofile -command "(New-Object Net.WebClient).DownloadFile(\"https:
 ECHO.
 ECHO Checking for all changes made through these updates so far...
 ECHO.
-:: Pull a list of mods and their download location. The modlist.txt should be in the modfile modurl format. Loop over each line in modlist.txt.
+:: Pull a list of mods and their download location. The modlist.txt should be in the modfile <space> modurl format. Loop over each line in modlist.txt.
 FOR /F "usebackq delims=" %%l IN (`powershell -noprofile -Command "Invoke-WebRequest https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/modlist.txt | Select -ExpandProperty "Content""`) DO (
 	:: We need l (line) to be in the "environment" (it's currently technically just an argument from FOR [%%l vs %l%], it's weird) so powershell can pick up on it.
 	SET l=%%l
