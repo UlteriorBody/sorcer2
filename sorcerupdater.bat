@@ -10,7 +10,8 @@ ECHO Checking for all changes made through these updates so far...
 ECHO.
 
 :: Pull a list of mods and their download location. The modlist.txt should be in the modfile <space> modurl format. Loop over each line in modlist.txt.
-FOR /F "usebackq delims=" %%l IN (`powershell -noprofile -Command "Invoke-WebRequest https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/modlist.txt | Select -ExpandProperty "Content""`) DO (
+powershell -noprofile -command "(New-Object Net.WebClient).DownloadFile(\"https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/modlist.txt\", 'modlist.txt')"
+FOR /F "delims=" %%l IN (modlist.txt) DO (
 	:: We need l (line) to be in the "environment" (it's currently technically just an argument from FOR [%%l vs %l%], it's weird) so powershell can pick up on it.
 	SET l=%%l
 	
@@ -37,9 +38,11 @@ FOR /F "usebackq delims=" %%l IN (`powershell -noprofile -Command "Invoke-WebReq
 		)
 	)
 )
+DEL /f modlist.txt
 
 :: Pull a list of mods that we want to delete if they exist. Loop over each line in modlist.txt.
-FOR /F "usebackq delims=" %%f IN (`powershell -noprofile -Command "Invoke-WebRequest https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/antimodlist.txt | Select -ExpandProperty "Content""`) DO (
+powershell -noprofile -command "(New-Object Net.WebClient).DownloadFile(\"https://raw.githubusercontent.com/$env:gitusername/sorcer2/master/antimodlist.txt\", 'antimodlist.txt')"
+FOR /F "delims=" %%f IN (antimodlist.txt) DO (
 	IF EXIST mods/%%f (
 		ECHO %%f is not needed, removing it!
 		
@@ -49,6 +52,7 @@ FOR /F "usebackq delims=" %%f IN (`powershell -noprofile -Command "Invoke-WebReq
 		ECHO.
 	)
 )
+DEL /f antimodlist.txt
 
 ECHO Update complete!
 ECHO.
